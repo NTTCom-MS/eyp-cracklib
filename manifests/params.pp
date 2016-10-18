@@ -1,13 +1,22 @@
 class cracklib::params {
 
+
+
   case $::osfamily
   {
     'redhat':
     {
       case $::operatingsystemrelease
       {
-        /^[5-7].*$/:
+        /^[56].*$/:
         {
+          $package_name = undef
+          $pwqualityconf = undef
+        }
+        /^[7].*$/:
+        {
+          $package_name = 'libpwquality'
+          $pwqualityconf = '/etc/security/pwquality.conf'
         }
         default: { fail("Unsupported RHEL/CentOS version! - ${::operatingsystemrelease}")  }
       }
