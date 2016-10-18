@@ -21,6 +21,9 @@ class cracklib::config inherits cracklib {
 
   if($cracklib::params::pamcracklib)
   {
+    # password    requisite     pam_cracklib.so try_first_pass retry=3 type=
+    # password required pam_cracklib.so try_first_pass retry=3 minlen=14,dcredit=-1,ucredit=-1,ocredit=-1 lcredit=-1
+
     # file { '/tmp/exec_pam_cracklib':
     #   ensure  => 'present',
     #   content => template("${module_name}/exec_sedpamcracklib.erb"),
@@ -33,9 +36,7 @@ class cracklib::config inherits cracklib {
 
     exec { 'pam_cracklib setup':
       command => template("${module_name}/exec_sedpamcracklib.erb"),
-      unless => template("${module_name}/exec_checkpamcracklib.erb"),
+      unless  => template("${module_name}/exec_checkpamcracklib.erb"),
     }
   }
-  #password    requisite     pam_cracklib.so try_first_pass retry=3 type=
-  #password required pam_cracklib.so try_first_pass retry=3 minlen=14,dcredit=-1,ucredit=-1,ocredit=-1 lcredit=-1
 }

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.2
+
+* lint
+
 ## 0.1.1
 
 * centos 6 support
