@@ -21,15 +21,15 @@ class cracklib::config inherits cracklib {
 
   if($cracklib::params::pamcracklib)
   {
-    file { '/tmp/exec_pam_cracklib':
-      ensure  => 'present',
-      content => template("${module_name}/exec_sedpamcracklib.erb"),
-    }
-
-    file { '/tmp/exec_check_pam_cracklib':
-      ensure  => 'present',
-      content => template("${module_name}/exec_checkpamcracklib.erb"),
-    }
+    # file { '/tmp/exec_pam_cracklib':
+    #   ensure  => 'present',
+    #   content => template("${module_name}/exec_sedpamcracklib.erb"),
+    # }
+    #
+    # file { '/tmp/exec_check_pam_cracklib':
+    #   ensure  => 'present',
+    #   content => template("${module_name}/exec_checkpamcracklib.erb"),
+    # }
 
     exec { 'pam_cracklib setup':
       command => template("${module_name}/exec_sedpamcracklib.erb"),
