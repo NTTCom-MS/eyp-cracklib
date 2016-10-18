@@ -4,6 +4,10 @@
 #
 class cracklib::config inherits cracklib {
 
+  Exec {
+    path => '/bin:/sbin:/usr/bin:/usr/sbin',
+  }
+
   if($cracklib::params::pwqualityconf!=undef)
   {
     file { $cracklib::params::pwqualityconf:
@@ -18,8 +22,18 @@ class cracklib::config inherits cracklib {
   if($cracklib::params::pamcracklib)
   {
     file { '/tmp/exec_pam_cracklib':
-      ensure => 'present',
+      ensure  => 'present',
       content => template("${module_name}/exec_sedpamcracklib.erb"),
+    }
+
+    file { '/tmp/exec_check_pam_cracklib':
+      ensure  => 'present',
+      content => template("${module_name}/exec_checkpamcracklib.erb"),
+    }
+
+    exec { 'pam_cracklib setup':
+      command => template("${module_name}/exec_sedpamcracklib.erb"),
+      unless => template("${module_name}/exec_checkpamcracklib.erb"),
     }
   }
   #password    requisite     pam_cracklib.so try_first_pass retry=3 type=
