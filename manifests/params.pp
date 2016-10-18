@@ -12,11 +12,13 @@ class cracklib::params {
         {
           $package_name = undef
           $pwqualityconf = undef
+          $pamcracklib = true
         }
         /^[7].*$/:
         {
           $package_name = 'libpwquality'
           $pwqualityconf = '/etc/security/pwquality.conf'
+          $pamcracklib = false
         }
         default: { fail("Unsupported RHEL/CentOS version! - ${::operatingsystemrelease}")  }
       }
